@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CoreUser" representedClassName="CoreUser" syncable="YES" codeGenerationType="class">
+        <attribute name="email" attributeType="String"/>
+        <attribute name="firstName" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="lastName" attributeType="String"/>
+        <attribute name="profileImage" optional="YES" attributeType="Binary"/>
+    </entity>
+    <entity name="Favorite" representedClassName="Favorite" syncable="YES" codeGenerationType="class">
+        <attribute name="collection" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="CoreUser" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="Favorite" positionX="-54" positionY="0" width="128" height="73"/>
+    </elements>
+</model>
