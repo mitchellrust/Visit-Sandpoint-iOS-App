@@ -8,11 +8,11 @@ target 'Visit Sandpoint Idaho' do
   ## Pods for Visit Sandpoint Idaho
 
   # Firebase
-  pod 'Firebase/Firestore'    # Cloud Firestore
-  pod 'Firebase/Analytics'    # Google Analytics
-  pod 'Firebase/Crashlytics'  # Firebase Crashlytics
-  pod 'Firebase/Auth'         # Authentication
-  pod 'Firebase/Storage'      # Cloud Storage
+  pod 'Firebase/Firestore', '7.4.0'    # Cloud Firestore
+  # pod 'Firebase/Analytics', '7.4.0'    # Google Analytics (not working with M1 yet)
+  pod 'Firebase/Crashlytics', '7.4.0'  # Firebase Crashlytics
+  pod 'Firebase/Auth', '7.4.0'         # Authentication
+  pod 'Firebase/Storage', '7.4.0'      # Cloud Storage
 
   pod 'SDWebImage', '~> 5.0'  # Image downloading and caching
 

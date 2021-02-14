@@ -94,7 +94,7 @@ class CloudFS {
                 let adventure: Adventure = Adventure(data: data)
                 adventures.append(adventure)
             }
-            adventures.sort(by: { $0.imgUrl > $1.imgUrl })
+            adventures.sort(by: { $0.rating > $1.rating })
             completion(adventures)
         })
     }

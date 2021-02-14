@@ -16,6 +16,7 @@ class HomeConfig {
     var topAdventures: Array<String>!
     var topRestaurants: Array<String>!
     var topShops: Array<String>!
+    var homePhoto: String
     
     init(data: [String: Any]) {
         let lastAdventureUpdate = data["lastAdventureUpdate"] as? Timestamp
@@ -28,6 +29,7 @@ class HomeConfig {
         self.topAdventures = data["topAdventures"] as? Array<String>
         self.topRestaurants = data["topRestaurants"] as? Array<String>
         self.topShops = data["topShops"] as? Array<String>
+        self.homePhoto = data["homePhoto"] as? String ?? "sandpoint_overview"
     }
     
 }

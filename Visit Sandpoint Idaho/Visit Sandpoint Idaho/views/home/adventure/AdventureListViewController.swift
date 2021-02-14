@@ -48,6 +48,7 @@ class AdventureListViewController: UIViewController, UITableViewDelegate, UITabl
         searchController.searchBar.placeholder = "Search Adventures"
         self.navigationItem.searchController = searchController
         self.definesPresentationContext = true
+        self.navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.scopeButtonTitles = ["All", "Hiking", "Mountain Biking"]
         searchController.searchBar.delegate = self
         let notificationCenter = NotificationCenter.default
@@ -80,8 +81,8 @@ class AdventureListViewController: UIViewController, UITableViewDelegate, UITabl
         })
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.shadowImage = nil
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {

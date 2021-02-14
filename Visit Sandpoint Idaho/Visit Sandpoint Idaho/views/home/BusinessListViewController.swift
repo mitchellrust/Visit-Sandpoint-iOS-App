@@ -54,6 +54,7 @@ class BusinessListViewController: UIViewController, UITableViewDelegate, UITable
         }
         self.navigationItem.searchController = searchController
         self.definesPresentationContext = true
+        self.navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.scopeButtonTitles = ["All", "3+ stars", "4+ stars"]
         searchController.searchBar.delegate = self
         let notificationCenter = NotificationCenter.default
@@ -86,8 +87,8 @@ class BusinessListViewController: UIViewController, UITableViewDelegate, UITable
         })
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.shadowImage = nil
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {

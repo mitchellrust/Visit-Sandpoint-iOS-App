@@ -58,7 +58,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             "lastShopUpdate": defaults.string(forKey: "lastShopUpdate") as Any,
             "topAdventures": defaults.stringArray(forKey: "topAdventures") ?? [String](),
             "topRestaurants": defaults.stringArray(forKey: "topRestaurants") ?? [String](),
-            "topShops": defaults.stringArray(forKey: "topShops") ?? [String]()
+            "topShops": defaults.stringArray(forKey: "topShops") ?? [String](),
+            "homePhoto": defaults.string(forKey: "homePhoto") as Any
         ]
         config = HomeConfig(data: data)
         
@@ -74,12 +75,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         restaurantCollectionView.collectionViewLayout = flowLayout
         adventureCollectionView.collectionViewLayout = flowLayout
         shopCollectionView.collectionViewLayout = flowLayout
+        
+        // set header image
+        headerImage.image = UIImage(named: config.homePhoto) ?? UIImage(named: "sandpoint_overview")!
                 
         // Add gradient to header image
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = headerImage.frame
         gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
-        gradient.locations = [0.2, 0.8]
+        gradient.locations = [0.6, 0.9]
         headerImage.layer.insertSublayer(gradient, at: 0)
         
         // Initialize black labels to transparent

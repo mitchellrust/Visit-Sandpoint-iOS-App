@@ -23,71 +23,80 @@ class MainController: UIViewController {
         
         // Check firestore for updates before launching views
         CloudFS.getHomeConfig(completion: { [self] config in
-            guard config != nil else { return }
-            
             let defaults = UserDefaults.standard
-            
-            // Set updated defaults
-            defaults.set(config?.topAdventures, forKey: "topAdventures")
-            defaults.set(config?.topRestaurants, forKey: "topRestaurants")
-            defaults.set(config?.topShops, forKey: "topShops")
-            
             // Get previous last updates
             let lastAdventureUpdate = defaults.string(forKey: "lastAdventureUpdate")
             let lastRestaurantUpdate = defaults.string(forKey: "lastRestaurantUpdate")
             let lastShopUpdate = defaults.string(forKey: "lastShopUpdate")
-                        
-            // update caches
             
-            if config!.lastAdventureUpdate != lastAdventureUpdate {
-                CloudFS.getAdventures(source: .server, completion: { [self, defaults] adventures in
-                    if adventures == nil {
-                        print("Could not update adventures cache")
-                    } else {
-                        print("Adventures cache successfully updated")
-                        defaults.set(config?.lastAdventureUpdate, forKey: "lastAdventureUpdate")
-                    }
+            guard config != nil || lastAdventureUpdate != nil else {
+                let alert = UIAlertController(title: "An error occurred", message: "It looks like you may not be connected to the internet. This app requires an internet connection on its very first launch. Please check your connection and try again.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in exit(0)}))
+                self.present(alert, animated: true)
+                return
+            }
+            
+            if config == nil {
+                self.navigate()
+            } else {
+                // Set updated defaults
+                defaults.set(config?.topAdventures, forKey: "topAdventures")
+                defaults.set(config?.topRestaurants, forKey: "topRestaurants")
+                defaults.set(config?.topShops, forKey: "topShops")
+                defaults.set(config?.homePhoto, forKey: "homePhoto")
+                            
+                // update caches
+                
+                if config!.lastAdventureUpdate != lastAdventureUpdate {
+                    CloudFS.getAdventures(source: .server, completion: { [self, defaults] adventures in
+                        if adventures == nil {
+                            print("Could not update adventures cache")
+                        } else {
+                            print("Adventures cache successfully updated")
+                            defaults.set(config?.lastAdventureUpdate, forKey: "lastAdventureUpdate")
+                        }
+                        adventureCacheReady = true
+                        self.isReadyToNavigate()
+                    }) // attempt a cache update
+                } else {
                     adventureCacheReady = true
                     self.isReadyToNavigate()
-                }) // attempt a cache update
-            } else {
-                adventureCacheReady = true
-                self.isReadyToNavigate()
-            }
-            
-            if config!.lastRestaurantUpdate != lastRestaurantUpdate {
-                // update restaurant cache
-                CloudFS.getRestaurants(source: .server, completion: { [self, defaults] restaurants in
-                    if restaurants == nil {
-                        print("Could not update restaurants cache")
-                    } else {
-                        print("Restaurants cache successfully updated")
-                        defaults.set(config?.lastRestaurantUpdate, forKey: "lastRestaurantUpdate")
-                    }
+                }
+                
+                if config!.lastRestaurantUpdate != lastRestaurantUpdate {
+                    // update restaurant cache
+                    CloudFS.getRestaurants(source: .server, completion: { [self, defaults] restaurants in
+                        if restaurants == nil {
+                            print("Could not update restaurants cache")
+                        } else {
+                            print("Restaurants cache successfully updated")
+                            defaults.set(config?.lastRestaurantUpdate, forKey: "lastRestaurantUpdate")
+                        }
+                        restaurantCacheReady = true
+                        self.isReadyToNavigate()
+                    })
+                } else {
                     restaurantCacheReady = true
                     self.isReadyToNavigate()
-                })
-            } else {
-                restaurantCacheReady = true
-                self.isReadyToNavigate()
-            }
-            
-            if config!.lastShopUpdate != lastShopUpdate {
-                // update shop cache
-                CloudFS.getShops(source: .server, completion: { [self, defaults] shops in
-                    if shops == nil {
-                        print("Could not update shops cache")
-                    } else {
-                        print("Shops cache successfully updated")
-                        defaults.set(config?.lastShopUpdate, forKey: "lastShopUpdate")
-                    }
+                }
+                
+                if config!.lastShopUpdate != lastShopUpdate {
+                    // update shop cache
+                    CloudFS.getShops(source: .server, completion: { [self, defaults] shops in
+                        if shops == nil {
+                            print("Could not update shops cache")
+                        } else {
+                            print("Shops cache successfully updated")
+                            defaults.set(config?.lastShopUpdate, forKey: "lastShopUpdate")
+                        }
+                        shopCacheReady = true
+                        self.isReadyToNavigate()
+                    })
+                    self.isReadyToNavigate()
+                } else {
                     shopCacheReady = true
                     self.isReadyToNavigate()
-                })
-                self.isReadyToNavigate()
-            } else {
-                shopCacheReady = true
-                self.isReadyToNavigate()
+                }
             }
         })
     }

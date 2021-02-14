@@ -39,11 +39,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // Add table cells
 //        let preferences = TableCellProps(title: "Preferences", actionId: "prefs", iconName: "settings-icon")
-        let support = TableCellProps(title: "Support", actionId: "support", iconName: "support-icon")
-        let acknowledgements = TableCellProps(title: "Acknowledgements", actionId: "ack", iconName: "ack-icon")
 //        cellObjects.append(preferences)
+        let support = TableCellProps(title: "Contact Us", actionId: "support", iconName: "support-icon")
         cellObjects.append(support)
+        let acknowledgements = TableCellProps(title: "Acknowledgements", actionId: "ack", iconName: "ack-icon")
         cellObjects.append(acknowledgements)
+        let request = TableCellProps(title: "Don't see a business?", actionId: "request", iconName: "marker-icon")
+        cellObjects.append(request)
         
         tableView.tableFooterView = UIView() // cover all extra lines without populated cells
         tableView.separatorInset.right = 20 // keep seperator lines from going to edge
@@ -271,6 +273,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.present(alert, animated: true)
         } else if actionId == "prefs" {
             performSegue(withIdentifier: "ShowPreferences", sender: self)
+        } else if actionId == "request" {
+            performSegue(withIdentifier: "ShowBusinessRequest", sender: self)
         } else if actionId == "support" {
             performSegue(withIdentifier: "ShowSupport", sender: self)
         } else if actionId == "ack" {
