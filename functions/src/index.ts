@@ -20,14 +20,23 @@ exports.newSupport = functions.firestore
     .document("support/{supportId}")
     .onCreate(async (snap, context) => {
       const supportId = snap.id;
-      const {userId, message} = snap.data() as any;
+      const support = snap.data() as any;
+      let title = `New Support Ticket (${supportId})`;
+      let message = support.message;
       let fromField = "From Anonymous";
-      if (userId && userId != "") {
-        const userRef = db.collection("users").doc(userId);
+      if (support.userId && support.userId != "") {
+        const userRef = db.collection("users").doc(support.userId);
         const {id, firstName, lastName} = (await userRef.get()).data() as any;
         fromField = `From ${firstName} ${lastName} (${id})`;
       }
-      return postToSlack(`New support ticket (${supportId})`,
-          fromField,
-          message);
+      if (message == "business_request") {
+        title = `New Business Request (${supportId})`;
+        message = `Business Name: ${support.businessName}
+        Website: ${support.businessURL}
+        Requested By Owner: ${support.requestedByOwner}`;
+        if (support.requestedByOwner) {
+          message += `\nOwner Email: ${support.ownerEmail}`;
+        }
+      }
+      return postToSlack(title, fromField, message);
     });
