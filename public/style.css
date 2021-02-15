@@ -1,0 +1,118 @@
+@font-face {
+  font-family: 'Bold';
+  src: url("fonts/Gotham-Bold.ttf");
+}
+@font-face {
+  font-family: 'Book';
+  src: url("fonts/Gotham-Book.ttf");
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Helvetica;
+  color: #fff;
+  font-family: "book";
+}
+
+html { 
+  background: url(images/lake_from_schweitzer.jpeg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.privacy {
+  max-width: 800px;
+  margin: 20px;
+  z-index: 2;
+}
+
+.overlay{
+  opacity:0.3;
+  background-color:#000;
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0px;
+  left:0px;
+  z-index: 1;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  font-family: "Bold";
+  text-transform: uppercase;
+  font-size: 50px;
+  z-index: 2;
+}
+
+.phrase {
+  font-size: 25px;
+  padding: 10px 24px;
+  text-align: center;
+  z-index: 2;
+}
+
+img.image {
+  width: 550px;
+  height: 550px;
+  border-radius: 75px;
+  z-index: 2;
+  margin: 25px 0px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.8);
+}
+
+.store-badges {
+  display: flex;
+  z-index: 2;
+}
+
+.store-badges img {
+  height: 50px;
+  padding: 5px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 15px;
+  color: #fff;
+  margin-top: 12px;
+  z-index: 2;
+}
+
+@media (max-width: 550px) { 
+  h1 {
+    margin: 20px 0;
+    font-size: 35px;
+  }
+
+  .phrase {
+    font-size: 20px !important;
+  }
+
+  img.image {
+    width: 100vw;
+    height: 100vw;
+  }
+}
+
+@media (min-height: 700px) { 
+  h1 {
+    font-size: 42px;
+  }
+
+  img.image {
+    width: 45vh;
+    height: 45vh;
+  }
+
+  .footer span {
+    display: block;
+  }
+}
